@@ -358,11 +358,29 @@ Route::get('/maps/leaflet', [Leaflet::class, 'index'])->name('maps-leaflet');
 Route::get('/laravel/user-management', [UserManagement::class, 'UserManagement'])->name('laravel-example-user-management');
 Route::resource('/user-list', UserManagement::class);
 
-// Formulaire employe
-use App\Http\Controllers\EmployeController;
-use App\Http\Controllers\GrhEmployeAdd;
+
+
+//Dashboard Controller
 use App\Http\Controllers\GrhDashboardController;
-Route::get('/employes/create', [EmployeController::class, 'create'])->name('employes.create');
-Route::post('/employes', [EmployeController::class, 'store'])->name('employes.store');
+//route
 Route::get('/dashboard/GrhDashboard', [GrhDashboardController::class, 'index'])->name('content.dashboard.GrhDashboard');
-Route::get('/app/grh/employe/add', [GrhEmployeAdd::class, 'index'])->name('app-grh-employe-add');
+
+//Gestion Employe controlleur
+use App\Http\Controllers\GrhEmployeAdd;
+//route
+Route::get('/app/grh/employe/add', [GrhEmployeAdd::class, 'create'])->name('employe.create');
+Route::post('/app/grh/employe/add', [GrhEmployeAdd::class, 'store'])->name('employe.store');
+Route::get('/app/grh/employe/list', [GrhEmployeAdd::class, 'index'])->name('employe.index');
+Route::get('/app/grh/employe/{id}/edit', [GrhEmployeAdd::class, 'edit'])->name('employe.edit');
+Route::put('/app/grh/employe/{id}', [GrhEmployeAdd::class, 'update'])->name('employe.update');
+Route::delete('/app/grh/employe/{id}', [GrhEmployeAdd::class, 'destroy'])->name('employe.destroy');
+
+//Gestion Departement controlleur
+use App\Http\Controllers\GrhDepartemntController;
+//route
+// Route::get('/app/grh/departement/add', [GrhDepartemntController::class, 'create'])->name('departement.create');
+Route::post('/app/grh/departement/add', [GrhDepartemntController::class, 'store'])->name('departement.store');
+Route::get('/app/grh/departement/list', [GrhDepartemntController::class, 'index'])->name('departement.index');
+Route::get('/app/grh/departement/{id}/edit', [GrhDepartemntController::class, 'edit'])->name('departement.edit');
+Route::put('/app/grh/departement/{id}', [GrhDepartemntController::class, 'update'])->name('departement.update');
+Route::delete('/app/grh/departement/{id}', [GrhDepartemntController::class, 'destroy'])->name('departement.destroy');

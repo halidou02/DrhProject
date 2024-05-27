@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'eCommerce Product List - Apps')
+@section('title', 'grh Employe List - Apps')
 
 @section('vendor-style')
 <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}" />
@@ -20,7 +20,7 @@
 
 @section('content')
 <h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">eCommerce /</span> Product List
+  <span class="text-muted fw-light">Employe /</span>List
 </h4>
 
 <!-- Product List Widget -->
@@ -93,9 +93,9 @@
                 <div class="card-header">
                     <h5 class="card-title mb-0">Employe</h5>
                 </div>
-                <div class="card-datatable table-responsive">
-                    <table class="table">
-                        <thead class="border-top">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-sm">
+                        <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Nom</th>
