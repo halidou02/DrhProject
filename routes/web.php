@@ -357,3 +357,12 @@ Route::get('/maps/leaflet', [Leaflet::class, 'index'])->name('maps-leaflet');
 // laravel example
 Route::get('/laravel/user-management', [UserManagement::class, 'UserManagement'])->name('laravel-example-user-management');
 Route::resource('/user-list', UserManagement::class);
+
+// Formulaire employe
+use App\Http\Controllers\EmployeController;
+use App\Http\Controllers\GrhEmployeAdd;
+use App\Http\Controllers\GrhDashboardController;
+Route::get('/employes/create', [EmployeController::class, 'create'])->name('employes.create');
+Route::post('/employes', [EmployeController::class, 'store'])->name('employes.store');
+Route::get('/dashboard/GrhDashboard', [GrhDashboardController::class, 'index'])->name('content.dashboard.GrhDashboard');
+Route::get('/app/grh/employe/add', [GrhEmployeAdd::class, 'index'])->name('app-grh-employe-add');

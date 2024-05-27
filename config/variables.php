@@ -3,7 +3,7 @@
 return [
   'creatorName' => 'Mali',
   'creatorUrl' => 'https://pixinvent.com',
-  'templateName' => 'Gestion GRH',
+  'templateName' => 'GRH-EMP',
   'templateSuffix' => 'GRH site',
   'templateVersion' => '1.0.0',
   'templateFree' => false,
