@@ -1,3 +1,4 @@
+<?php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,8 @@ class Conge extends Model
     protected $fillable = [
         'IDEmploye',
         'Type',
+        'dateDebutConge',
+        'dateFinConge',
         'StatutConge',
     ];
 

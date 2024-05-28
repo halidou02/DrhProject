@@ -20,7 +20,7 @@ class GrhEmployeAdd extends Controller
     public function index()
     {
         $employes = Employe::with(['departement', 'poste'])->get();
-        return view('content.apps.app-grh-employe-add', compact('employes'));
+        return view('content.apps.app-grh-employe-list', compact('employes'));
     }
 
     public function store(Request $request)

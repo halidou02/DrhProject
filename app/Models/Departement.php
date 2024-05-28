@@ -19,9 +19,9 @@ class Departement extends Model
         'ResponsableDepartement',
     ];
 
-    public function poste()
+    public function postes()
     {
-        return $this->belongsTo(Poste::class, 'IDPoste');
+        return $this->hasMany(Poste::class, 'IDDepartement');
     }
 
     public function employes()

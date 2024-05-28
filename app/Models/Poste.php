@@ -13,14 +13,15 @@ class Poste extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'IDDepartement',
         'TitrePoste',
         'SalaireDeBase',
         'Description',
     ];
 
-    public function departements()
+    public function departement()
     {
-        return $this->hasMany(Departement::class, 'IDPoste');
+        return $this->belongsTo(Departement::class, 'IDDepartement');
     }
 
     public function employes()
