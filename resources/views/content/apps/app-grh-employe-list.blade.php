@@ -23,7 +23,7 @@
   <span class="text-muted fw-light">Employe /</span>List
 </h4>
 
-<!-- Product List Widget -->
+<!-- Product List Widget
 
 <div class="card mb-4">
   <div class="card-widget-separator-wrapper">
@@ -82,10 +82,10 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Product List Table -->
-<div class="container">
+
     <div class="row">
         <!-- Employe Table -->
         <div class="col-12">
@@ -149,6 +149,6 @@
             </div>
         </div>
     </div>
-</div>
+
 
 @endsection

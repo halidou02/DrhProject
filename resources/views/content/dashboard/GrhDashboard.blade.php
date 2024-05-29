@@ -26,10 +26,10 @@
       <div class="d-flex align-items-end row">
         <div class="col-7">
           <div class="card-body text-nowrap">
-            <h5 class="card-title mb-0">Congratulations John! 🎉</h5>
-            <p class="mb-2">Best seller of the month</p>
-            <h4 class="text-primary mb-1">$48.9k</h4>
-            <a href="javascript:;" class="btn btn-primary">View Sales</a>
+            <h5 class="card-title mb-0">Effectif total de l&#39;entreprise.</h5>
+            <p class="mb-2">Nom entreprise</p>
+            <h4 class="text-primary mb-1">{{ $effectifTotal }} Employes</h4>
+            <a href="{{ route('employe.index')}}" class="btn btn-primary">Liste des employes</a>
           </div>
         </div>
         <div class="col-5 text-center text-sm-left">
@@ -47,7 +47,7 @@
     <div class="card h-100">
       <div class="card-header">
         <div class="d-flex justify-content-between mb-3">
-          <h5 class="card-title mb-0">Statistics</h5>
+          <h5 class="card-title mb-0">Statistique</h5>
           <small class="text-muted">Updated 1 month ago</small>
         </div>
       </div>
@@ -57,8 +57,8 @@
             <div class="d-flex align-items-center">
               <div class="badge rounded-pill bg-label-primary me-3 p-2"><i class="ti ti-chart-pie-2 ti-sm"></i></div>
               <div class="card-info">
-                <h5 class="mb-0">230k</h5>
-                <small>Sales</small>
+                <h5 class="mb-0">{{$TotalDepartement}}</h5>
+                <small>Departement</small>
               </div>
             </div>
           </div>
@@ -84,8 +84,8 @@
             <div class="d-flex align-items-center">
               <div class="badge rounded-pill bg-label-success me-3 p-2"><i class="ti ti-currency-dollar ti-sm"></i></div>
               <div class="card-info">
-                <h5 class="mb-0">$9745</h5>
-                <small>Revenue</small>
+                <h5 class="mb-0">{{$coutTotal}}DA</h5>
+                <small>Main d'oeuvre</small>
               </div>
             </div>
           </div>
@@ -94,647 +94,67 @@
     </div>
   </div>
   <!--/ Statistics -->
-
-  <div class="col-xl-4 col-12">
-    <div class="row">
-      <!-- Expenses -->
-      <div class="col-xl-6 mb-4 col-md-3 col-6">
-        <div class="card">
-          <div class="card-header pb-0">
-            <h5 class="card-title mb-0">82.5k</h5>
-            <small class="text-muted">Expenses</small>
-          </div>
-          <div class="card-body">
-            <div id="expensesChart"></div>
-            <div class="mt-md-2 text-center mt-lg-3 mt-3">
-              <small class="text-muted mt-3">$21k Expenses more than last month</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--/ Expenses -->
-
-      <!-- Profit last month -->
-      <div class="col-xl-6 mb-4 col-md-3 col-6">
-        <div class="card">
-          <div class="card-header pb-0">
-            <h5 class="card-title mb-0">Profit</h5>
-            <small class="text-muted">Last Month</small>
-          </div>
-          <div class="card-body">
-            <div id="profitLastMonth"></div>
-            <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
-              <h4 class="mb-0">624k</h4>
-              <small class="text-success">+8.24%</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--/ Profit last month -->
-
-      <!-- Generated Leads -->
-      <div class="col-xl-12 mb-4 col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between">
-              <div class="d-flex flex-column">
-                <div class="card-title mb-auto">
-                  <h5 class="mb-1 text-nowrap">Generated Leads</h5>
-                  <small>Monthly Report</small>
-                </div>
-                <div class="chart-statistics">
-                  <h3 class="card-title mb-1">4,350</h3>
-                  <small class="text-success text-nowrap fw-medium"><i class='ti ti-chevron-up me-1'></i> 15.8%</small>
-                </div>
-              </div>
-              <div id="generatedLeadsChart"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--/ Generated Leads -->
-    </div>
-  </div>
-
-  <!-- Revenue Report -->
-  <div class="col-12 col-xl-8 mb-4">
+  <div class="row">
+  <div class="col-xl-4 mb-4 col-lg-4 col-12">
     <div class="card">
-      <div class="card-body p-0">
-        <div class="row row-bordered g-0">
-          <div class="col-md-8 position-relative p-4">
-            <div class="card-header d-inline-block p-0 text-wrap position-absolute">
-              <h5 class="m-0 card-title">Revenue Report</h5>
-            </div>
-            <div id="totalRevenueChart" class="mt-n1"></div>
-          </div>
-          <div class="col-md-4 p-4">
-            <div class="text-center mt-4">
-              <div class="dropdown">
-                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="budgetId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <script>
-                    document.write(new Date().getFullYear())
-                  </script>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="budgetId">
-                  <a class="dropdown-item prev-year1" href="javascript:void(0);">
-                    <script>
-                      document.write(new Date().getFullYear() - 1)
-                    </script>
-                  </a>
-                  <a class="dropdown-item prev-year2" href="javascript:void(0);">
-                    <script>
-                      document.write(new Date().getFullYear() - 2)
-                    </script>
-                  </a>
-                  <a class="dropdown-item prev-year3" href="javascript:void(0);">
-                    <script>
-                      document.write(new Date().getFullYear() - 3)
-                    </script>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <h3 class="text-center pt-4 mb-0">$25,825</h3>
-            <p class="mb-4 text-center"><span class="fw-medium">Budget: </span>56,800</p>
-            <div class="px-3">
-              <div id="budgetChart"></div>
-            </div>
-            <div class="text-center mt-4">
-              <button type="button" class="btn btn-primary">Increase Budget</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/ Revenue Report -->
-
-  <!-- Earning Reports -->
-  <div class="col-xl-4 col-md-6 mb-4">
-    <div class="card h-100">
-      <div class="card-header d-flex justify-content-between">
-        <div class="card-title mb-0">
-          <h5 class="m-0 me-2">Earning Reports</h5>
-          <small class="text-muted">Weekly Earnings Overview</small>
-        </div>
-        <div class="dropdown">
-          <button class="btn p-0" type="button" id="earningReports" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="ti ti-dots-vertical ti-sm text-muted"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="earningReports">
-            <a class="dropdown-item" href="javascript:void(0);">Download</a>
-            <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-            <a class="dropdown-item" href="javascript:void(0);">Share</a>
-          </div>
-        </div>
-      </div>
-      <div class="card-body pb-0">
-        <ul class="p-0 m-0">
-          <li class="d-flex mb-3">
-            <div class="avatar flex-shrink-0 me-3">
-              <span class="avatar-initial rounded bg-label-primary"><i class='ti ti-chart-pie-2 ti-sm'></i></span>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Net Profit</h6>
-                <small class="text-muted">12.4k Sales</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-3">
-                <small>$1,619</small>
-                <div class="d-flex align-items-center gap-1">
-                  <i class='ti ti-chevron-up text-success'></i>
-                  <small class="text-muted">18.6%</small>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-3">
-            <div class="avatar flex-shrink-0 me-3">
-              <span class="avatar-initial rounded bg-label-success"><i class='ti ti-currency-dollar ti-sm'></i></span>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Total Income</h6>
-                <small class="text-muted">Sales, Affiliation</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-3">
-                <small>$3,571</small>
-                <div class="d-flex align-items-center gap-1">
-                  <i class='ti ti-chevron-up text-success'></i>
-                  <small class="text-muted">39.6%</small>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-3">
-            <div class="avatar flex-shrink-0 me-3">
-              <span class="avatar-initial rounded bg-label-secondary"><i class='ti ti-credit-card ti-sm'></i></span>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Total Expenses</h6>
-                <small class="text-muted">ADVT, Marketing</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-3">
-                <small>$430</small>
-                <div class="d-flex align-items-center gap-1">
-                  <i class='ti ti-chevron-up text-success'></i>
-                  <small class="text-muted">52.8%</small>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
-        <div id="reportBarChart"></div>
-      </div>
-    </div>
-  </div>
-  <!--/ Earning Reports -->
-
-  <!-- Popular Product -->
-  <div class="col-md-6 col-xl-4 mb-4">
-    <div class="card h-100">
-      <div class="card-header d-flex justify-content-between">
-        <div class="card-title m-0 me-2">
-          <h5 class="m-0 me-2">Popular Products</h5>
-          <small class="text-muted">Total 10.4k Visitors</small>
-        </div>
-        <div class="dropdown">
-          <button class="btn p-0" type="button" id="popularProduct" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="ti ti-dots-vertical ti-sm text-muted"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="popularProduct">
-            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-          </div>
-        </div>
-      </div>
       <div class="card-body">
-        <ul class="p-0 m-0">
-          <li class="d-flex mb-4 pb-1">
-            <div class="me-3">
-              <img src="{{ asset('assets/img/products/iphone.png')}}" alt="User" class="rounded" width="46">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column">
+            <div class="card-title mb-auto">
+              <h5 class="mb-1 text-nowrap">Répartition par genre</h5>
             </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Apple iPhone 13</h6>
-                <small class="text-muted d-block">Item: #FXZ-4567</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <p class="mb-0 fw-medium">$999.29</p>
-              </div>
+            <div class="chart-statistics">
+              <canvas id="repartitionGenreChart"></canvas>
             </div>
-          </li>
-          <li class="d-flex mb-4 pb-1">
-            <div class="me-3">
-              <img src="{{ asset('assets/img/products/nike-air-jordan.png')}}" alt="User" class="rounded" width="46">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Nike Air Jordan</h6>
-                <small class="text-muted d-block">Item: #FXZ-3456</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <p class="mb-0 fw-medium">$72.40</p>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-4 pb-1">
-            <div class="me-3">
-              <img src="{{ asset('assets/img/products/headphones.png')}}" alt="User" class="rounded" width="46">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Beats Studio 2</h6>
-                <small class="text-muted d-block">Item: #FXZ-9485</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <p class="mb-0 fw-medium">$99</p>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-4 pb-1">
-            <div class="me-3">
-              <img src="{{ asset('assets/img/products/apple-watch.png')}}" alt="User" class="rounded" width="46">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Apple Watch Series 7</h6>
-                <small class="text-muted d-block">Item: #FXZ-2345</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <p class="mb-0 fw-medium">$249.99</p>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-4 pb-1">
-            <div class="me-3">
-              <img src="{{ asset('assets/img/products/amazon-echo.png')}}" alt="User" class="rounded" width="46">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Amazon Echo Dot</h6>
-                <small class="text-muted d-block">Item: #FXZ-8959</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <p class="mb-0 fw-medium">$79.40</p>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex">
-            <div class="me-3">
-              <img src="{{ asset('assets/img/products/play-station.png')}}" alt="User" class="rounded" width="46">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Play Station Console</h6>
-                <small class="text-muted d-block">Item: #FXZ-7892</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <p class="mb-0 fw-medium">$129.48</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!--/ Popular Product -->
-
-  <!-- Sales by Countries tabs-->
-  <div class="col-md-6 col-xl-4 col-xl-4 mb-4">
-    <div class="card h-100">
-      <div class="card-header d-flex justify-content-between pb-2 mb-1">
-        <div class="card-title mb-1">
-          <h5 class="m-0 me-2">Sales by Countries</h5>
-          <small class="text-muted">62 Deliveries in Progress</small>
-        </div>
-        <div class="dropdown">
-          <button class="btn p-0" type="button" id="salesByCountryTabs" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="ti ti-dots-vertical ti-sm text-muted"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="salesByCountryTabs">
-            <a class="dropdown-item" href="javascript:void(0);">Download</a>
-            <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-            <a class="dropdown-item" href="javascript:void(0);">Share</a>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="col-xl-4 mb-4 col-lg-4 col-12">
+    <div class="card">
       <div class="card-body">
-        <div class="nav-align-top">
-          <ul class="nav nav-tabs nav-fill" role="tablist">
-            <li class="nav-item">
-              <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-new" aria-controls="navs-justified-new" aria-selected="true">New</button>
-            </li>
-            <li class="nav-item">
-              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-link-preparing" aria-controls="navs-justified-link-preparing" aria-selected="false">Preparing</button>
-            </li>
-            <li class="nav-item">
-              <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-link-shipping" aria-controls="navs-justified-link-shipping" aria-selected="false">Shipping</button>
-            </li>
-          </ul>
-          <div class="tab-content pb-0">
-            <div class="tab-pane fade show active" id="navs-justified-new" role="tabpanel">
-              <ul class="timeline timeline-advance timeline-advance mb-2 pb-1">
-                <li class="timeline-item ps-4 border-left-dashed">
-                  <span class="timeline-indicator timeline-indicator-success">
-                    <i class="ti ti-circle-check"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-success text-uppercase fw-medium">sender</small>
-                    </div>
-                    <h6 class="mb-0">Myrtle Ullrich</h6>
-                    <p class="text-muted mb-0 text-nowrap">101 Boulder, California(CA), 95959</p>
-                  </div>
-                </li>
-                <li class="timeline-item ps-4 border-transparent">
-                  <span class="timeline-indicator timeline-indicator-primary">
-                    <i class="ti ti-map-pin"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-primary text-uppercase fw-medium">Receiver</small>
-                    </div>
-                    <h6 class="mb-0">Barry Schowalter</h6>
-                    <p class="text-muted mb-0 text-nowrap">939 Orange, California(CA),92118</p>
-                  </div>
-                </li>
-              </ul>
-              <div class="border-bottom border-bottom-dashed mt-0 mb-4"></div>
-              <ul class="timeline timeline-advance mb-0">
-                <li class="timeline-item ps-4 border-left-dashed">
-                  <span class="timeline-indicator timeline-indicator-success">
-                    <i class="ti ti-circle-check"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-success text-uppercase fw-medium">sender</small>
-                    </div>
-                    <h6 class="mb-0">Veronica Herman</h6>
-                    <p class="text-muted mb-0 text-nowrap">162 Windsor, California(CA), 95492</p>
-                  </div>
-                </li>
-                <li class="timeline-item ps-4 border-transparent">
-                  <span class="timeline-indicator timeline-indicator-primary">
-                    <i class="ti ti-map-pin"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-primary text-uppercase fw-medium">Receiver</small>
-                    </div>
-                    <h6 class="mb-0">Helen Jacobs</h6>
-                    <p class="text-muted mb-0 text-nowrap">487 Sunset, California(CA), 94043</p>
-                  </div>
-                </li>
-              </ul>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column">
+            <div class="card-title mb-auto">
+              <h5 class="mb-1 text-nowrap">Répartition par Departement</h5>
             </div>
-
-            <div class="tab-pane fade" id="navs-justified-link-preparing" role="tabpanel">
-              <ul class="timeline timeline-advance mb-2 pb-1">
-                <li class="timeline-item ps-4 border-left-dashed">
-                  <span class="timeline-indicator timeline-indicator-success">
-                    <i class="ti ti-circle-check"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-success text-uppercase fw-medium">sender</small>
-                    </div>
-                    <h6 class="mb-0">Barry Schowalter</h6>
-                    <p class="text-muted mb-0 text-nowrap">939 Orange, California(CA),92118</p>
-                  </div>
-                </li>
-                <li class="timeline-item ps-4 border-transparent">
-                  <span class="timeline-indicator timeline-indicator-primary">
-                    <i class="ti ti-map-pin"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-primary text-uppercase fw-medium">Receiver</small>
-                    </div>
-                    <h6 class="mb-0">Myrtle Ullrich</h6>
-                    <p class="text-muted mb-0 text-nowrap">101 Boulder, California(CA), 95959 </p>
-                  </div>
-                </li>
-              </ul>
-              <div class="border-bottom border-bottom-dashed mt-0 mb-4"></div>
-              <ul class="timeline timeline-advance mb-0">
-                <li class="timeline-item ps-4 border-left-dashed">
-                  <span class="timeline-indicator timeline-indicator-success">
-                    <i class="ti ti-circle-check"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-success text-uppercase fw-medium">sender</small>
-                    </div>
-                    <h6 class="mb-0">Veronica Herman</h6>
-                    <p class="text-muted mb-0 text-nowrap">162 Windsor, California(CA), 95492</p>
-                  </div>
-                </li>
-                <li class="timeline-item ps-4 border-transparent">
-                  <span class="timeline-indicator timeline-indicator-primary">
-                    <i class="ti ti-map-pin"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-primary text-uppercase fw-medium">Receiver</small>
-                    </div>
-                    <h6 class="mb-0">Helen Jacobs</h6>
-                    <p class="text-muted mb-0 text-nowrap">487 Sunset, California(CA), 94043</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="tab-pane fade" id="navs-justified-link-shipping" role="tabpanel">
-              <ul class="timeline timeline-advance mb-2 pb-1">
-                <li class="timeline-item ps-4 border-left-dashed">
-                  <span class="timeline-indicator timeline-indicator-success">
-                    <i class="ti ti-circle-check"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-success text-uppercase fw-medium">sender</small>
-                    </div>
-                    <h6 class="mb-0">Veronica Herman</h6>
-                    <p class="text-muted mb-0 text-nowrap">101 Boulder, California(CA), 95959</p>
-                  </div>
-                </li>
-                <li class="timeline-item ps-4 border-transparent">
-                  <span class="timeline-indicator timeline-indicator-primary">
-                    <i class="ti ti-map-pin"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-primary text-uppercase fw-medium">Receiver</small>
-                    </div>
-                    <h6 class="mb-0">Barry Schowalter</h6>
-                    <p class="text-muted mb-0 text-nowrap">939 Orange, California(CA),92118</p>
-                  </div>
-                </li>
-              </ul>
-              <div class="border-bottom border-bottom-dashed mt-0 mb-4"></div>
-              <ul class="timeline timeline-advance mb-0">
-                <li class="timeline-item ps-4 border-left-dashed">
-                  <span class="timeline-indicator timeline-indicator-success">
-                    <i class="ti ti-circle-check"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-success text-uppercase fw-medium">sender</small>
-                    </div>
-                    <h6 class="mb-0">Myrtle Ullrich</h6>
-                    <p class="text-muted mb-0 text-nowrap">162 Windsor, California(CA), 95492 </p>
-                  </div>
-                </li>
-                <li class="timeline-item ps-4 border-transparent">
-                  <span class="timeline-indicator timeline-indicator-primary">
-                    <i class="ti ti-map-pin"></i>
-                  </span>
-                  <div class="timeline-event ps-0 pb-0">
-                    <div class="timeline-header">
-                      <small class="text-primary text-uppercase fw-medium">Receiver</small>
-                    </div>
-                    <h6 class="mb-0">Helen Jacobs</h6>
-                    <p class="text-muted mb-0 text-nowrap">487 Sunset, California(CA), 94043</p>
-                  </div>
-                </li>
-              </ul>
+            <div class="chart-statistics">
+              <canvas id="repartitionDepartementChart"></canvas>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!--/ Sales by Countries tabs -->
 
-  <!-- Transactions -->
-  <div class="col-md-6 col-xl-4 mb-4">
-    <div class="card h-100">
-      <div class="card-header d-flex justify-content-between">
-        <div class="card-title m-0 me-2">
-          <h5 class="m-0 me-2">Transactions</h5>
-          <small class="text-muted">Total 58 Transactions done in this Month</small>
-        </div>
-        <div class="dropdown">
-          <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="ti ti-dots-vertical ti-sm text-muted"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
-            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-          </div>
-        </div>
-      </div>
+  <div class="col-xl-4 mb-4 col-lg-4 col-12">
+    <div class="card">
       <div class="card-body">
-        <ul class="p-0 m-0">
-          <li class="d-flex mb-3 pb-1 align-items-center">
-            <div class="badge bg-label-primary me-3 rounded p-2">
-              <i class="ti ti-wallet ti-sm"></i>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column">
+            <div class="card-title mb-auto">
+              <h5 class="mb-1 text-nowrap">Répartition par Age</h5>
             </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Wallet</h6>
-                <small class="text-muted d-block">Starbucks</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0 text-danger">-$75</h6>
-              </div>
+            <div class="chart-statistics">
+              <canvas id="repartitionAgeChart"></canvas>
             </div>
-          </li>
-          <li class="d-flex mb-3 pb-1 align-items-center">
-            <div class="badge bg-label-success rounded me-3 p-2">
-              <i class="ti ti-browser-check ti-sm"></i>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Bank Transfer</h6>
-                <small class="text-muted d-block">Add Money</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0 text-success">+$480</h6>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-3 pb-1 align-items-center">
-            <div class="badge bg-label-danger rounded me-3 p-2">
-              <i class="ti ti-brand-paypal ti-sm"></i>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Paypal</h6>
-                <small class="text-muted d-block mb-1">Client Payment</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0 text-success">+$268</h6>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-3 pb-1 align-items-center">
-            <div class="badge bg-label-secondary me-3 rounded p-2">
-              <i class="ti ti-credit-card ti-sm"></i>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Master Card</h6>
-                <small class="text-muted d-block mb-1">Ordered iPhone 13</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0 text-danger">-$699</h6>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-3 pb-1 align-items-center">
-            <div class="badge bg-label-info me-3 rounded p-2">
-              <i class="ti ti-currency-dollar ti-sm"></i>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Bank Transactions</h6>
-                <small class="text-muted d-block mb-1">Refund</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0 text-success">+$98</h6>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-3 pb-1 align-items-center">
-            <div class="badge bg-label-danger me-3 rounded p-2">
-              <i class="ti ti-brand-paypal ti-sm"></i>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Paypal</h6>
-                <small class="text-muted d-block mb-1">Client Payment</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0 text-success">+$126</h6>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex align-items-center">
-            <div class="badge bg-label-success me-3 rounded p-2">
-              <i class="ti ti-browser-check ti-sm"></i>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <h6 class="mb-0">Bank Transfer</h6>
-                <small class="text-muted d-block mb-1">Pay Office Rent</small>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0 text-danger">-$1290</h6>
-              </div>
-            </div>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <!--/ Transactions -->
+</div>
+
+
+
+
+
+
 
   <!-- Invoice table -->
-  <div class="col-xl-8">
+  <div class="row">
     <div class="card">
       <div class="table-responsive card-datatable">
         <table class="table datatable-invoice border-top">
@@ -755,4 +175,200 @@
   </div>
   <!-- /Invoice table -->
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+        .card {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .card-title h5 {
+            font-weight: bold;
+            color: #333;
+        }
+        .chart-statistics {
+            text-align: center;
+        }
+    </style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+            var genreCtx = document.getElementById('repartitionGenreChart').getContext('2d');
+            var repartitionGenreData = @json($repartitionGenre);
+
+            var genreLabels = repartitionGenreData.map(function(item) {
+                return item.Genre;
+            });
+
+            var genreData = repartitionGenreData.map(function(item) {
+                return item.count;
+            });
+
+            new Chart(genreCtx, {
+                type: 'bar',
+                data: {
+                    labels: genreLabels,
+                    datasets: [{
+                        label: 'Nombre d\'employés',
+                        data: genreData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#333'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#333'
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Répartition par âge
+            var ageCtx = document.getElementById('repartitionAgeChart').getContext('2d');
+            var repartitionAgeData = @json($repartitionAge);
+
+            var ageLabels = repartitionAgeData.map(function(item) {
+                return item.age;
+            });
+
+            var ageData = repartitionAgeData.map(function(item) {
+                return item.count;
+            });
+
+            new Chart(ageCtx, {
+                type: 'bar',
+                data: {
+                    labels: ageLabels,
+                    datasets: [{
+                        label: 'Nombre d\'employés',
+                        data: ageData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#333'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#333'
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Répartition par département
+            var departementCtx = document.getElementById('repartitionDepartementChart').getContext('2d');
+            var repartitionDepartementData = @json($repartitionDepartement);
+
+            var departementLabels = repartitionDepartementData.map(function(item) {
+                return item.NomDepartement;
+            });
+
+            var departementData = repartitionDepartementData.map(function(item) {
+                return item.employes_count;
+            });
+
+            new Chart(departementCtx, {
+                type: 'bar',
+                data: {
+                    labels: departementLabels,
+                    datasets: [{
+                        label: 'Nombre d\'employés',
+                        data: departementData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#333'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#333',
+                                maxRotation: 0,
+                                minRotation: 0
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        });
+</script>
 @endsection
