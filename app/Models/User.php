@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -19,7 +19,16 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'user_id',
         'email',
+        'join_date',
+        'last_login',
+        'phone_number',
+        'status',
+        'role_name',
+        'avatar',
+        'position',
+        'department',
         'password',
     ];
 
@@ -40,6 +49,30 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
+
+    /**
+     * The boot method to auto-generate user_id.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($model) {
+            $latestUser = self::orderBy('user_id', 'desc')->first();
+            if ($latestUser) {
+                $latestID = intval(substr($latestUser->user_id, 3));
+                $nextID = $latestID + 1;
+            } else {
+                $nextID = 1;
+            }
+            $model->user_id = 'KH_' . sprintf("%04d", $nextID);
+
+            // Ensure the generated user_id is unique
+            while (self::where('user_id', $model->user_id)->exists()) {
+                $nextID++;
+                $model->user_id = 'KH_' . sprintf("%04d", $nextID);
+            }
+        });
+    }
 }

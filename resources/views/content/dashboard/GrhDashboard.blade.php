@@ -1,48 +1,53 @@
-@extends('layouts/layoutMaster')
+@extends('layouts.layoutMaster')
 
-@section('title', 'eCommerce Dashboard - Apps')
+@section('title', 'Tableau de Bord RH')
 
 @section('vendor-style')
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css')}}" />
+<link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 @endsection
 
 @section('vendor-script')
-<script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-<script src="{{asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
+<script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 @endsection
 
 @section('page-script')
-<script src="{{asset('assets/js/app-ecommerce-dashboard.js')}}"></script>
+<script src="{{ asset('assets/js/tables-datatables-advanced.js') }}"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+<script src="{{ asset('assets/js/app-rh-dashboard.js') }}"></script> <!-- Inclusion du script externe -->
 @endsection
 
 @section('content')
 <div class="row">
-  <!-- View sales -->
   <div class="col-xl-4 mb-4 col-lg-5 col-12">
     <div class="card">
       <div class="d-flex align-items-end row">
         <div class="col-7">
           <div class="card-body text-nowrap">
-            <h5 class="card-title mb-0">Effectif total de l&#39;entreprise.</h5>
+            <h5 class="card-title mb-0">Effectif total de l'entreprise</h5>
             <p class="mb-2">Nom entreprise</p>
-            <h4 class="text-primary mb-1">{{ $effectifTotal }} Employes</h4>
-            <a href="{{ route('employe.index')}}" class="btn btn-primary">Liste des employes</a>
+            <h4 class="text-primary mb-1">{{ $effectifTotal }} Employés</h4>
+            <a href="{{ route('employe.index') }}" class="btn btn-primary">Liste des employés</a>
           </div>
         </div>
         <div class="col-5 text-center text-sm-left">
           <div class="card-body pb-0 px-0 px-md-4">
-            <img src="{{ asset('assets/img/illustrations/card-advance-sale.png')}}" height="140" alt="view sales">
+            <img src="{{ asset('assets/img/illustrations/card-advance-sale.png') }}" height="140" alt="view sales">
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- View sales -->
 
-  <!-- Statistics -->
   <div class="col-xl-8 mb-4 col-lg-7 col-12">
     <div class="card h-100">
       <div class="card-header">
@@ -57,8 +62,8 @@
             <div class="d-flex align-items-center">
               <div class="badge rounded-pill bg-label-primary me-3 p-2"><i class="ti ti-chart-pie-2 ti-sm"></i></div>
               <div class="card-info">
-                <h5 class="mb-0">{{$TotalDepartement}}</h5>
-                <small>Departement</small>
+                <h5 class="mb-0">{{ $TotalDepartement }}</h5>
+                <small>Département</small>
               </div>
             </div>
           </div>
@@ -66,17 +71,17 @@
             <div class="d-flex align-items-center">
               <div class="badge rounded-pill bg-label-info me-3 p-2"><i class="ti ti-users ti-sm"></i></div>
               <div class="card-info">
-                <h5 class="mb-0">8.549k</h5>
-                <small>Customers</small>
+                <h5 class="mb-0">{{ $rotationPersonnel }}</h5>
+                <small>Rotation</small>
               </div>
             </div>
           </div>
           <div class="col-md-3 col-6">
             <div class="d-flex align-items-center">
-              <div class="badge rounded-pill bg-label-danger me-3 p-2"><i class="ti ti-shopping-cart ti-sm"></i></div>
+              <div class="badge rounded-pill bg-label-danger me-3 p-2"><i class="ti ti-calendar ti-sm"></i></div>
               <div class="card-info">
-                <h5 class="mb-0">1.423k</h5>
-                <small>Products</small>
+                <h5 class="mb-0">{{ $tauxAbsenteisme }}</h5>
+                <small>Absentéisme</small>
               </div>
             </div>
           </div>
@@ -84,8 +89,8 @@
             <div class="d-flex align-items-center">
               <div class="badge rounded-pill bg-label-success me-3 p-2"><i class="ti ti-currency-dollar ti-sm"></i></div>
               <div class="card-info">
-                <h5 class="mb-0">{{$coutTotal}}DA</h5>
-                <small>Main d'oeuvre</small>
+                <h5 class="mb-0">{{ $coutTotal }}</h5>
+                <small>Main d'œuvre</small>
               </div>
             </div>
           </div>
@@ -93,282 +98,144 @@
       </div>
     </div>
   </div>
-  <!--/ Statistics -->
+
+  <!-- Répartition des graphiques sur la même ligne -->
   <div class="row">
-  <div class="col-xl-4 mb-4 col-lg-4 col-12">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between">
-          <div class="d-flex flex-column">
-            <div class="card-title mb-auto">
-              <h5 class="mb-1 text-nowrap">Répartition par genre</h5>
-            </div>
-            <div class="chart-statistics">
-              <canvas id="repartitionGenreChart"></canvas>
-            </div>
-          </div>
+    <div class="col-lg-4 col-md-6 col-12 mb-4">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-md-center align-items-start">
+          <h5 class="card-title mb-0">Répartition par genre</h5>
+        </div>
+        <div class="card-body">
+          <div id="repartitionGenreChart"></div>
+          <div id="repartitionGenreData" style="display: none;">@json($repartitionGenre)</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-xl-4 mb-4 col-lg-4 col-12">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between">
-          <div class="d-flex flex-column">
-            <div class="card-title mb-auto">
-              <h5 class="mb-1 text-nowrap">Répartition par Departement</h5>
-            </div>
-            <div class="chart-statistics">
-              <canvas id="repartitionDepartementChart"></canvas>
-            </div>
-          </div>
+    <div class="col-lg-4 col-md-6 col-12 mb-4">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-md-center align-items-start">
+          <h5 class="card-title mb-0">Répartition par Département</h5>
+        </div>
+        <div class="card-body">
+          <div id="repartitionDepartementChart"></div>
+          <div id="repartitionDepartementData" style="display: none;">@json($repartitionDepartement)</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-xl-4 mb-4 col-lg-4 col-12">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between">
-          <div class="d-flex flex-column">
-            <div class="card-title mb-auto">
-              <h5 class="mb-1 text-nowrap">Répartition par Age</h5>
-            </div>
-            <div class="chart-statistics">
-              <canvas id="repartitionAgeChart"></canvas>
-            </div>
-          </div>
+    <div class="col-lg-4 col-md-6 col-12 mb-4">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-md-center align-items-start">
+          <h5 class="card-title mb-0">Répartition par Age</h5>
+        </div>
+        <div class="card-body">
+          <div id="repartitionAgeChart"></div>
+          <div id="repartitionAgeData" style="display: none;">@json($repartitionAge)</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Column Search -->
+<div class="card">
+  <h5 class="card-header">Recherche par employé</h5>
+  <div class="card-datatable text-nowrap">
+    <table class="dt-column-search table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Âge</th>
+          <th>Genre</th>
+          <th>Département</th>
+          <th>Poste</th>
+          <th>Statut</th>
+        </tr>
+        <tr>
+          <th><input type="text" class="form-control" placeholder="Search ID" /></th>
+          <th><input type="text" class="form-control" placeholder="Search Nom" /></th>
+          <th><input type="text" class="form-control" placeholder="Search Prénom" /></th>
+          <th><input type="text" class="form-control" placeholder="Search Âge" /></th>
+          <th><input type="text" class="form-control" placeholder="Search Genre" /></th>
+          <th><input type="text" class="form-control" placeholder="Search Département" /></th>
+          <th><input type="text" class="form-control" placeholder="Search Poste" /></th>
+          <th><input type="text" class="form-control" placeholder="Search Statut" /></th>
+        </tr>
+      </thead>
+      <tbody class="table-border-bottom-0">
+        @foreach($employes as $employe)
+        <tr>
+          <td>{{ $employe->IDEmploye }}</td>
+          <td>{{ $employe->Nom }}</td>
+          <td>{{ $employe->Prenom }}</td>
+          <td>{{ \Carbon\Carbon::parse($employe->DateNaissance)->age }}</td>
+          <td>{{ $employe->Genre }}</td>
+          <td>{{ $employe->departement->NomDepartement }}</td>
+          <td>{{ $employe->poste->TitrePoste }}</td>
+          <td>
+            @if ($employe->Statut == 'Actif')
+              <span class="badge bg-label-primary me-1">{{ $employe->Statut }}</span>
+            @elseif ($employe->Statut == 'En congé')
+              <span class="badge bg-label-warning me-1">{{ $employe->Statut }}</span>
+            @else
+              <span class="badge bg-label-danger me-1">{{ $employe->Statut }}</span>
+            @endif
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+</div>
+<!--/ Column Search -->
 
-
-
-
-
-
-  <!-- Invoice table -->
-  <div class="row">
-    <div class="card">
-      <div class="table-responsive card-datatable">
-        <table class="table datatable-invoice border-top">
-          <thead>
-            <tr>
-              <th></th>
-              <th>ID</th>
-              <th><i class='ti ti-trending-up text-secondary'></i></th>
-              <th>Total</th>
-              <th>Issued Date</th>
-              <th>Invoice Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-        </table>
+<!-- Modale pour afficher les employés -->
+<div class="modal fade" id="employesModal" tabindex="-1" aria-labelledby="employesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="employesModalLabel">Employés concernés</h5>
+        <div class="ms-auto" id="totalMainDoeuvreContainer" style="font-weight: bold;">
+          Total main d'œuvre: <span id="totalMainDoeuvre"></span> DA
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Âge</th>
+                <th>Genre</th>
+                <th>Département</th>
+                <th>Poste</th>
+                <th>Main d'œuvre (Salaire de base)</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody id="employesModalBody">
+              <!-- Les employés seront chargés ici dynamiquement -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-  <!-- /Invoice table -->
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-        .card {
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .card-title h5 {
-            font-weight: bold;
-            color: #333;
-        }
-        .chart-statistics {
-            text-align: center;
-        }
-    </style>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-            var genreCtx = document.getElementById('repartitionGenreChart').getContext('2d');
-            var repartitionGenreData = @json($repartitionGenre);
+<!-- /Modale -->
 
-            var genreLabels = repartitionGenreData.map(function(item) {
-                return item.Genre;
-            });
 
-            var genreData = repartitionGenreData.map(function(item) {
-                return item.count;
-            });
 
-            new Chart(genreCtx, {
-                type: 'bar',
-                data: {
-                    labels: genreLabels,
-                    datasets: [{
-                        label: 'Nombre d\'employés',
-                        data: genreData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1,
-                        borderRadius: 5
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                            titleColor: '#fff',
-                            bodyColor: '#fff'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: '#333'
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#333'
-                            },
-                            grid: {
-                                display: false
-                            }
-                        }
-                    }
-                }
-            });
 
-            // Répartition par âge
-            var ageCtx = document.getElementById('repartitionAgeChart').getContext('2d');
-            var repartitionAgeData = @json($repartitionAge);
 
-            var ageLabels = repartitionAgeData.map(function(item) {
-                return item.age;
-            });
-
-            var ageData = repartitionAgeData.map(function(item) {
-                return item.count;
-            });
-
-            new Chart(ageCtx, {
-                type: 'bar',
-                data: {
-                    labels: ageLabels,
-                    datasets: [{
-                        label: 'Nombre d\'employés',
-                        data: ageData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1,
-                        borderRadius: 5
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                            titleColor: '#fff',
-                            bodyColor: '#fff'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: '#333'
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#333'
-                            },
-                            grid: {
-                                display: false
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Répartition par département
-            var departementCtx = document.getElementById('repartitionDepartementChart').getContext('2d');
-            var repartitionDepartementData = @json($repartitionDepartement);
-
-            var departementLabels = repartitionDepartementData.map(function(item) {
-                return item.NomDepartement;
-            });
-
-            var departementData = repartitionDepartementData.map(function(item) {
-                return item.employes_count;
-            });
-
-            new Chart(departementCtx, {
-                type: 'bar',
-                data: {
-                    labels: departementLabels,
-                    datasets: [{
-                        label: 'Nombre d\'employés',
-                        data: departementData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1,
-                        borderRadius: 5
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                            titleColor: '#fff',
-                            bodyColor: '#fff'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: '#333'
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#333',
-                                maxRotation: 0,
-                                minRotation: 0
-                            },
-                            grid: {
-                                display: false
-                            }
-                        }
-                    }
-                }
-            });
-        });
-</script>
 @endsection

@@ -24,6 +24,19 @@
 
 @section('page-script')
 <script src="{{asset('assets/js/app-grh-employe-add.js')}}"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+
+        $('#Photo').change(function() {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#photo-preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        });
+    });
+</script>
 @endsection
 
 @section('content')
@@ -58,85 +71,95 @@
                     <h5 class="card-title mb-0">Formulaire Employe</h5>
                 </div>
                 <div class="card-body">
-                    <form action="" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label class="form-label" for="employeNom">Nom</label>
-                            <input type="text" class="form-control" id="employeNom" placeholder="Nom" name="Nom" aria-label="Nom">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="employePrenom">Prénom</label>
-                            <input type="text" class="form-control" id="employePrenom" placeholder="Prénom" name="Prenom" aria-label="Prénom">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="employeDateNaissance">Date de Naissance</label>
-                            <input type="date" class="form-control" id="employeDateNaissance" name="DateNaissance" aria-label="Date de Naissance">
-                        </div>
-                        <div class="mb-3 col-4">
-                            <label class="form-label" for="employeGenre">Genre</label>
-                            <select id="employeGenre" class="select2 form-select" name="Genre" data-placeholder="Genre">
-                                <option value="H">Homme</option>
-                                <option value="F">Femme</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="employeAdresse">Adresse</label>
-                            <input type="text" class="form-control" id="employeAdresse" placeholder="Adresse" name="Adresse" aria-label="Adresse">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="employeNumeroTelephone">Numéro de Téléphone</label>
-                            <input type="text" class="form-control" id="employeNumeroTelephone" placeholder="Numéro de Téléphone" name="NumeroTelephone" aria-label="Numéro de Téléphone">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="employeEmail">Email</label>
-                            <input type="email" class="form-control" id="employeEmail" placeholder="Email" name="Email" aria-label="Email">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="employeDateIncorporation">Date d'Incorporation</label>
-                            <input type="date" class="form-control" id="employeDateIncorporation" name="DateIncorporation" aria-label="Date d'Incorporation">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="employeSalairedeBase">Salaire de Base</label>
-                            <input type="number" class="form-control" id="employeSalairedeBase" placeholder="Salaire de Base" name="SalairedeBase" aria-label="Salaire de Base">
-                        </div>
-                        <div class="mb-3 col-4">
-                            <label class="form-label" for="employeStatut">Statut</label>
-                            <select id="employeStatut" class="select2 form-select" name="Statut" data-placeholder="Actif">
-                                <option value="Actif">Actif</option>
-                                <option value="En mission">En mission</option>
-                                <option value="En congé">En congé</option>
-                                <option value="Retraité">Retraité</option>
-                            </select>
-                        </div>
-                        <div class="mb-3 col-4">
-                            <label class="form-label" for="employeEtatCivil">État Civil</label>
-                            <select id="employeEtatCivil" class="select2 form-select" name="EtatCivil" data-placeholder="Célibataire">
-                                <option value="Célibataire">Célibataire</option>
-                                <option value="Marié">Marié</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="employePhoto">Photo</label>
-                            <input type="text" class="form-control" id="employePhoto" placeholder="URL de la Photo" name="Photo" aria-label="Photo">
-                        </div>
-                        <div class="mb-3 col-4">
-                            <label class="form-label" for="departementId">Département</label>
-                            <select id="departementId" class="select2 form-select" name="IDDepartement" data-placeholder="Département">
-                                @foreach($departements as $departement)
-                                    <option value="{{ $departement->IDDepartement }}">{{ $departement->NomDepartement }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3 col-4">
-                            <label class="form-label" for="posteId">Poste</label>
-                            <select id="posteId" class="select2 form-select" name="IDPoste" data-placeholder="Poste">
-                                @foreach($postes as $poste)
-                                    <option value="{{ $poste->IDPoste }}">{{ $poste->TitrePoste }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    </form>
+                <form action="{{ route('employe.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+
+            <div class="mb-3">
+                <label for="Nom" class="form-label">Nom</label>
+                <input type="text" class="form-control" id="Nom" name="Nom" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="Prenom" class="form-label">Prenom</label>
+                <input type="text" class="form-control" id="Prenom" name="Prenom" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="DateNaissance" class="form-label">Date de Naissance</label>
+                <input type="date" class="form-control" id="DateNaissance" name="DateNaissance" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="Genre" class="form-label">Genre</label>
+                <select class="form-control select2" id="Genre" name="Genre" required>
+                    <option value="Homme">Homme</option>
+                    <option value="Femmme">Femme</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="Adresse" class="form-label">Adresse</label>
+                <input type="text" class="form-control" id="Adresse" name="Adresse">
+            </div>
+
+            <div class="mb-3">
+                <label for="NumeroTelephone" class="form-label">Numéro de Téléphone</label>
+                <input type="text" class="form-control" id="NumeroTelephone" name="NumeroTelephone">
+            </div>
+
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="Email" name="Email">
+            </div>
+
+            <div class="mb-3">
+                <label for="DateIncorporation" class="form-label">Date d'Incorporation</label>
+                <input type="date" class="form-control" id="DateIncorporation" name="DateIncorporation" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="SalairedeBase" class="form-label">Salaire de Base</label>
+                <input type="number" class="form-control" id="SalairedeBase" name="SalairedeBase">
+            </div>
+
+            <div class="mb-3">
+                <label for="Statut" class="form-label">Statut</label>
+                <select class="form-control select2" id="Statut" name="Statut" required>
+                    <option value="Actif">Actif</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="EtatCivil" class="form-label">État Civil</label>
+                <input type="text" class="form-control" id="EtatCivil" name="EtatCivil">
+            </div>
+
+            <div class="mb-3">
+                <label for="Photo" class="form-label">Photo</label>
+                <input type="file" class="form-control" id="Photo" name="Photo">
+                <img id="photo-preview" src="" alt="Aperçu de la photo" style="max-width: 200px; margin-top: 10px;">
+            </div>
+
+            <div class="mb-3">
+                <label for="IDDepartement" class="form-label">Département</label>
+                <select class="form-control select2" id="IDDepartement" name="IDDepartement" required>
+                    @foreach($departements as $departement)
+                        <option value="{{ $departement->IDDepartement }}">{{ $departement->NomDepartement }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="IDPoste" class="form-label">Poste</label>
+                <select class="form-control select2" id="IDPoste" name="IDPoste" required>
+                    @foreach($postes as $poste)
+                        <option value="{{ $poste->IDPoste }}">{{ $poste->TitrePoste }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
                 </div>
             </div>
 

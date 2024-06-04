@@ -130,11 +130,17 @@
                                 <td>{{ $employe->SalairedeBase }}</td>
                                 <td>{{ $employe->Statut }}</td>
                                 <td>{{ $employe->EtatCivil }}</td>
-                                <td><img src="{{ $employe->Photo }}" alt="Photo" width="50"></td>
+                                <td>
+                                    @if ($employe->Photo)
+                                        <img src="{{ asset($employe->Photo) }}" alt="Photo" width="50">
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
                                 <td>{{ $employe->departement->NomDepartement ?? 'N/A' }}</td>
                                 <td>{{ $employe->poste->TitrePoste ?? 'N/A' }}</td>
                                 <td>
-                                    <a href="{{ route('employe.edit', $employe->IDEmploye) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="{{ route('employe.edit', $employe->IDEmploye) }}" class="btn btn-sm btn-primary">Edit</a>
                                     <form action="{{ route('employe.destroy', $employe->IDEmploye) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
