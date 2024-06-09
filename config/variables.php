@@ -1,7 +1,7 @@
 <?php
 // Variables
 return [
-  'creatorName' => 'Mali',
+  'creatorName' => 'EOA HALIDOU IBRAHIM MAIGA et EOA MASSIRE SACKO',
   'creatorUrl' => 'https://pixinvent.com',
   'templateName' => 'GRH-EMP',
   'templateSuffix' => 'GRH site',

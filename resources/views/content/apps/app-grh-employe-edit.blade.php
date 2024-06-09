@@ -27,9 +27,7 @@
 @endsection
 
 @section('content')
-<h4 class="py-3 mb-4">
-    <span class="text-muted fw-light">Employe /</span> Modifier
-</h4>
+
 
 <div class="card mb-4">
     <div class="card-body">
@@ -55,8 +53,8 @@
             <div class="mb-3">
                 <label for="Genre" class="form-label">Genre</label>
                 <select class="form-control select2" id="Genre" name="Genre" required>
-                    <option value="H" {{ $employe->Genre == 'H' ? 'selected' : '' }}>Homme</option>
-                    <option value="F" {{ $employe->Genre == 'F' ? 'selected' : '' }}>Femme</option>
+                    <option value="Homme" {{ $employe->Genre == 'Homme' ? 'selected' : '' }}>Homme</option>
+                    <option value="Femme" {{ $employe->Genre == 'Femme' ? 'selected' : '' }}>Femme</option>
                 </select>
             </div>
 

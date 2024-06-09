@@ -19,10 +19,17 @@
 @endsection
 
 @section('content')
-<h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">Historique Salaire /</span>List
-</h4>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
 
+    <div class="d-flex flex-column justify-content-center">
+      <h4 class="mb-1 mt-3">Historique des modifications</h4>
+
+    </div>
+    <div class="d-flex align-content-center flex-wrap gap-3">
+        <a href="{{ route('historiquesalaire.create') }}" class="btn btn-primary">Modifier un salaire</a>
+    </div>
+
+  </div>
 <div class="card mb-4">
   <div class="card-header">
     <h5 class="card-title mb-0">Historique Salaire</h5>

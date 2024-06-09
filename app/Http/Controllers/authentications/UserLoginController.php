@@ -11,7 +11,8 @@ class UserLoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('content.authentications.auth-login-basic');
+      $pageConfigs = ['myLayout' => 'blank'];
+        return view('content.authentications.auth-login-basic', ['pageConfigs' => $pageConfigs]);
     }
 
     public function login(Request $request)
@@ -37,6 +38,6 @@ class UserLoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('auth-login-basic')->with('success', 'Logged out successfully');
+        return redirect()->route('/login')->with('success', 'Logged out successfully');
     }
 }

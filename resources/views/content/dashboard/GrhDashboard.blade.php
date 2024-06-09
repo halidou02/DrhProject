@@ -15,6 +15,8 @@
 <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 @endsection
 
 @section('page-script')
@@ -24,6 +26,106 @@
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
 <script src="{{ asset('assets/js/app-rh-dashboard.js') }}"></script> <!-- Inclusion du script externe -->
+<script src="{{asset('assets/js/charts-chartjs.js')}}"></script>
+<script>
+    const laborCostData = @json($laborCostData);
+    const laborRotationData = @json($laborRotationData);
+    const absenteeismData = @json($absenteeismData);
+</script>
+<script>
+
+const bestDepartments = @json($bestDepartments);
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialiser le graphique linéaire
+        var options = {
+            series: [{
+                name: 'Score Moyen',
+                data: bestDepartments.map(department => department.avg_score)
+            }],
+            chart: {
+                height: 350,
+                type: 'area',
+                zoom: {
+                    enabled: false
+                },
+                toolbar: {
+                    show: true
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    inverseColors: false,
+                    opacityFrom: 0.7,
+                    opacityTo: 0.3,
+                    stops: [0, 90, 100]
+                },
+            },
+            colors: bestDepartments.map(department => {
+                const score = department.avg_score;
+                if (score >= 8) {
+                    return '#00E396'; // Vert pour les notes élevées
+                } else if (score >= 5) {
+                    return '#FEB019'; // Jaune pour les notes moyennes
+                } else {
+                    return '#FF4560'; // Rouge pour les notes basses
+                }
+            }),
+            title: {
+                text: 'Départements ayant les meilleurs scores aux évaluations mensuelles',
+                align: 'left',
+                style: {
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    color: '#263238'
+                }
+            },
+            grid: {
+                borderColor: '#e7e7e7',
+                row: {
+                    colors: ['#f3f3f3', 'transparent'], // Alternating background color
+                    opacity: 0.5
+                },
+            },
+            markers: {
+                size: 5
+            },
+            xaxis: {
+                categories: bestDepartments.map(department => department.Departement),
+                title: {
+                    text: 'Département'
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Score Moyen'
+                },
+                min: 0,
+                max: 10
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'right',
+                floating: true,
+                offsetY: -25,
+                offsetX: -5
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#bestDepartmentsLineChart"), options);
+        chart.render();
+    });
+
+</script>
+
+<script src="{{asset('assets/js/charts-apex.js')}}"></script>
 @endsection
 
 @section('content')
@@ -98,6 +200,70 @@
       </div>
     </div>
   </div>
+
+  <!-- Répartition des graphiques sur la même ligne 1er ligne -->
+  <div class="row">
+
+    <!-- Départements ayant les meilleurs scores aux évaluations mensuelles -->
+    <div class="row">
+  <div class="col-lg-6 col-12 mb-4">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <div>
+          <h5 class="card-title mb-0">Départements ayant les meilleurs scores aux évaluations mensuelles</h5>
+          <small class="text-muted">Scores mensuels</small>
+        </div>
+        <form method="GET" action="{{ route('dashboard.index') }}">
+          <div class="row">
+            <div class="col-md-4">
+              <input type="number" name="year" class="form-control" placeholder="Year" value="{{ $selectedYear }}">
+            </div>
+            <div class="col-md-4">
+              <select name="month" class="form-control">
+                @for ($i = 1; $i <= 12; $i++)
+                  <option value="{{ $i }}" {{ $i == $selectedMonth ? 'selected' : '' }}>{{ $i }}</option>
+                @endfor
+              </select>
+            </div>
+            <div class="col-md-4">
+              <button type="submit" class="btn btn-primary">Filtrer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-body">
+        <div id="bestDepartmentsLineChart"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-12 mb-4">
+    <div class="card">
+      <div class="card-header header-elements">
+        <h5 class="card-title mb-0">Rotation du personnel</h5>
+        <div class="card-header-elements ms-auto py-0 dropdown">
+          <button type="button" class="btn dropdown-toggle hide-arrow p-0" id="labor-rotation-chart-dd" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="ti ti-dots-vertical"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="labor-rotation-chart-dd">
+            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <canvas id="laborRotationPieChart" class="chartjs" data-height="337"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</div>
+
 
   <!-- Répartition des graphiques sur la même ligne -->
   <div class="row">
@@ -233,9 +399,4 @@
   </div>
 </div>
 <!-- /Modale -->
-
-
-
-
-
 @endsection

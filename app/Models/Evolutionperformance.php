@@ -1,3 +1,4 @@
+<?php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,10 +16,12 @@ class EvolutionPerformance extends Model
         'IDEmploye',
         'DateEvaluat',
         'ResultEvaluat',
+        'Departement',
     ];
 
     public function employe()
     {
         return $this->belongsTo(Employe::class, 'IDEmploye');
     }
+
 }

@@ -40,9 +40,7 @@
 @endsection
 
 @section('content')
-<h4 class="py-3 mb-0">
-  <span class="text-muted fw-light">Employe/</span><span class="fw-medium"> Ajouter un Employe</span>
-</h4>
+
 
 <div class="app-grh">
 
@@ -54,9 +52,7 @@
 
     </div>
     <div class="d-flex align-content-center flex-wrap gap-3">
-      <div class="d-flex gap-3"><button class="btn btn-label-secondary">Annuler</button>
-        </div>
-      <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="{{ route('employe.index') }}" class="btn btn-primary">Liste des employés</a>
     </div>
 
   </div>
@@ -123,16 +119,22 @@
             </div>
 
             <div class="mb-3">
-                <label for="Statut" class="form-label">Statut</label>
-                <select class="form-control select2" id="Statut" name="Statut" required>
-                    <option value="Actif">Actif</option>
-                </select>
-            </div>
+    <label for="Statut" class="form-label">Statut</label>
+    <select class="form-control select2" id="Statut" name="Statut" required>
+        <option value="Actif">Actif</option>
+        <option value="En congé">En congé</option>
+        <option value="quitte">quitte</option>
+    </select>
+</div>
 
-            <div class="mb-3">
-                <label for="EtatCivil" class="form-label">État Civil</label>
-                <input type="text" class="form-control" id="EtatCivil" name="EtatCivil">
-            </div>
+<div class="mb-3">
+    <label for="EtatCivil" class="form-label">État Civil</label>
+    <select class="form-control select2" id="EtatCivil" name="EtatCivil" required>
+        <option value="Célibataire">Célibataire</option>
+        <option value="Marié">Marié</option>
+    </select>
+</div>
+
 
             <div class="mb-3">
                 <label for="Photo" class="form-label">Photo</label>

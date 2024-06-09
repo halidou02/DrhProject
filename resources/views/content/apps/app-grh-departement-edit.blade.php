@@ -17,9 +17,14 @@
         <input type="text" class="form-control" id="NomDepartement" name="NomDepartement" value="{{ $departement->NomDepartement }}" required>
       </div>
       <div class="mb-3">
-        <label for="ResponsableDepartement" class="form-label">Responsable Departement</label>
-        <input type="text" class="form-control" id="ResponsableDepartement" name="ResponsableDepartement" value="{{ $departement->ResponsableDepartement }}">
-      </div>
+                            <label for="ResponsableDepartement" class="form-label">Responsable du Département</label>
+                            <select class="form-control select2" id="ResponsableDepartement" name="ResponsableDepartement">
+                                <option value="">Sélectionner un employé</option>
+                                @foreach ($employes as $employe)
+                                <option value="{{ $employe->IDEmploye }}" @if($departement->ResponsableDepartement == $employe->IDEmploye) selected @endif>{{ $employe->Nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
       <button type="submit" class="btn btn-primary">Update</button>
     </form>
   </div>

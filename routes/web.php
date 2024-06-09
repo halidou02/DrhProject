@@ -1,15 +1,31 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
+
+
+Route::get('/', function () {
+  return view('auth.login'); // Change 'welcome' to the name of your default view
+})->name('home');
+
+
+
+
+
+
+
 // Middleware for authentication
 use App\Http\Controllers\GrhDashboardController;
 // Home route
-Route::get('/home', [GrhDashboardController::class, 'index'])->name('home')->middleware('auth');
+ Route::get('/home', [GrhDashboardController::class, 'index'])->name('home') ->middleware(['auth', 'role:Admin']);
 
+// Dashboard route with role middleware
+Route::get('/dashboard', [GrhDashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware(['auth', 'role:Admin']); // Change 'Admin' to the appropriate role
 
 // Dashboard Controller
 
-Route::get('/dashboard/GrhDashboard', [GrhDashboardController::class, 'index'])->name('content.dashboard.GrhDashboard');
+Route::get('/dashboard/GrhDashboard', [GrhDashboardController::class, 'index'])->name('dashboard.index');
 
 // Gestion Employe Controller
 use App\Http\Controllers\GrhEmployeController;
@@ -20,6 +36,18 @@ Route::get('/app/grh/employe/{id}/edit', [GrhEmployeController::class, 'edit'])-
 Route::put('/app/grh/employe/{id}', [GrhEmployeController::class, 'update'])->name('employe.update');
 Route::delete('/app/grh/employe/{id}', [GrhEmployeController::class, 'destroy'])->name('employe.destroy');
 Route::get('/employes-by-stat', [GrhEmployeController::class, 'getEmployesByStat']);
+Route::get('/app/grh/employe/{id}/departement', [GrhEmployeContoller::class, 'getDepartement']);
+
+
+// Routes for Evolution Performance
+use App\Http\Controllers\GrhEvaluationController;
+Route::get('/app/grh/evaluation/add', [GrhEvaluationController::class, 'create'])->name('evaluation.create');
+Route::post('/app/grh/evaluation/add', [GrhEvaluationController::class, 'store'])->name('evaluation.store');
+Route::get('/app/grh/evaluation/list', [GrhEvaluationController::class, 'index'])->name('evaluation.index');
+Route::get('/app/grh/evaluation/{id}/edit', [GrhEvaluationController::class, 'edit'])->name('evaluation.edit');
+Route::put('/app/grh/evaluation/{id}', [GrhEvaluationController::class, 'update'])->name('evaluation.update');
+Route::delete('/app/grh/evaluation/{id}', [GrhEvaluationController::class, 'destroy'])->name('evaluation.destroy');
+
 
 // Gestion Departement Controller
 use App\Http\Controllers\GrhDepartementController;
@@ -80,15 +108,23 @@ use App\Http\Controllers\authentications\ForgotPasswordCover;
 use App\Http\Controllers\authentications\TwoStepsBasic;
 use App\Http\Controllers\authentications\TwoStepsCover;
 
+
+// use Laravel\Fortify\Fortify;
+
+// Fortify::routes();
+
+
 // Route::get('/auth/login-basic', [LoginBasic::class, 'index'])->name('auth-login-basic');
 // Route::get('/auth/login-cover', [LoginCover::class, 'index'])->name('auth-login-cover');
 
 Route::get('/auth/login-basic', [UserLoginController::class, 'showLoginForm'])->name('auth-login-basic');
-Route::post('/auth/login', [UserLoginController::class, 'login'])->name('login');
-Route::post('/auth/logout', [UserLoginController::class, 'logout'])->name('logout');
+// Route::post('/auth/login', [UserLoginController::class, 'login'])->name('login');
+use App\Http\Controllers\AuthenticatedSessionController;
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
 
 Route::get('/auth/register-basic', [UserRegisterController::class, 'showRegistrationForm'])->name('auth-register-basic');
-Route::post('register', [UserRegisterController::class, 'register'])->name('register');
+
 
 Route::get('/auth/register-cover', [RegisterCover::class, 'index'])->name('auth-register-cover');
 
@@ -175,3 +211,22 @@ Route::get('/pages/misc-error', [MiscError::class, 'index'])->name('pages-misc-e
 Route::get('/pages/misc-under-maintenance', [MiscUnderMaintenance::class, 'index'])->name('pages-misc-under-maintenance');
 Route::get('/pages/misc-comingsoon', [MiscComingSoon::class, 'index'])->name('pages-misc-comingsoon');
 Route::get('/pages/misc-not-authorized', [MiscNotAuthorized::class, 'index'])->name('pages-misc-not-authorized');
+
+//user add for admin
+use App\Http\Controllers\UserController;
+
+Route::get('/app/user/add', [UserController::class, 'create'])->middleware(['auth', 'role:Admin'])->name('user.create');
+Route::post('/app/user/add', [UserController::class, 'store'])->name('user.store');
+Route::get('/app/user/list', [UserController::class, 'index'])->name('user.index');
+Route::get('/app/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/app/user/{id}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/app/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+use App\Http\Controllers\GrhAvantageSociauxController;
+
+Route::get('/app/grh/avantages_sociaux/add', [GrhAvantageSociauxController::class, 'create'])->name('avantages_sociaux.create');
+Route::post('/app/grh/avantages_sociaux/add', [GrhAvantageSociauxController::class, 'store'])->name('avantages_sociaux.store');
+Route::get('/app/grh/avantages_sociaux/list', [GrhAvantageSociauxController::class, 'index'])->name('avantages_sociaux.index');
+Route::get('/app/grh/avantages_sociaux/{id}/edit', [GrhAvantageSociauxController::class, 'edit'])->name('avantages_sociaux.edit');
+Route::put('/app/grh/avantages_sociaux/{id}', [GrhAvantageSociauxController::class, 'update'])->name('avantages_sociaux.update');
+Route::delete('/app/grh/avantages_sociaux/{id}', [GrhAvantageSociauxController::class, 'destroy'])->name('avantages_sociaux.destroy');

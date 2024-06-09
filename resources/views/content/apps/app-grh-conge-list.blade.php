@@ -19,9 +19,17 @@
 @endsection
 
 @section('content')
-<h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">Congé /</span>Liste
-</h4>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
+
+    <div class="d-flex flex-column justify-content-center">
+      <h4 class="mb-1 mt-3">Liste des Congés</h4>
+
+    </div>
+    <div class="d-flex align-content-center flex-wrap gap-3">
+        <a href="{{ route('conge.create') }}" class="btn btn-primary">Ajouter un congés</a>
+    </div>
+
+  </div>
 
 <div class="container">
     <div class="row">

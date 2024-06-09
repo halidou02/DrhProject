@@ -10,6 +10,7 @@ class GrhPosteController extends Controller
 {
     public function create()
     {
+        // Fetch all departements for the dropdown
         $departements = Departement::all();
         return view('content.apps.app-grh-poste-add', compact('departements'));
     }
@@ -22,11 +23,12 @@ class GrhPosteController extends Controller
 
     public function store(Request $request)
     {
+        // Validate and store the form data
         $validatedData = $request->validate([
-            'TitrePoste' => 'required|string|max:255',
-            'Description' => 'nullable|string',
-            'SalaireDeBase' => 'required|numeric',
-            'IDDepartement' => 'required|exists:departement,IDDepartement',
+            'TitrePoste' => 'required|string|max:100',
+            'SalaireDeBase' => 'required|integer',
+            'Description' => 'required|string|max:200',
+            'IdDepartement' => 'required|exists:departement,IDDepartement',
         ]);
 
         Poste::create($validatedData);
@@ -44,10 +46,10 @@ class GrhPosteController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'TitrePoste' => 'required|string|max:255',
-            'Description' => 'nullable|string',
-            'SalaireDeBase' => 'required|numeric',
-            'IDDepartement' => 'required|exists:departement,IDDepartement',
+            'TitrePoste' => 'required|string|max:100',
+            'SalaireDeBase' => 'required|integer',
+            'Description' => 'required|string|max:200',
+            'IdDepartement' => 'required|exists:departement,IDDepartement',
         ]);
 
         Poste::where('IDPoste', $id)->update($validatedData);

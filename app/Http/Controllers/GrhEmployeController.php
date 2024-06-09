@@ -142,6 +142,11 @@ class GrhEmployeController extends Controller
         $employe->delete();
         return redirect()->route('employe.index')->with('success', 'Employé supprimé avec succès');
     }
+    public function getDepartement($id)
+{
+    $employe = Employe::with('departement')->findOrFail($id);
+    return response()->json(['IDDepartement' => $employe->IDDepartement, 'NomDepartement' => $employe->departement->NomDepartement ?? 'N/A']);
+}
 }
 
 

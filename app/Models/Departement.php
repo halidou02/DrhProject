@@ -21,11 +21,19 @@ class Departement extends Model
 
     public function postes()
     {
-        return $this->hasMany(Poste::class, 'IDDepartement');
+        return $this->hasMany(Poste::class, 'IdDepartement', 'IDDepartement');
     }
 
     public function employes()
     {
         return $this->hasMany(Employe::class, 'IDDepartement');
+    }
+    public function users()
+    {
+        return $this->hasMany(User::class, 'IDDepartement');
+    }
+    public function responsable()
+    {
+        return $this->belongsTo(Employe::class, 'ResponsableDepartement', 'IDEmploye');
     }
 }

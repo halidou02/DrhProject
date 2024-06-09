@@ -2,15 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use HasProfilePhoto;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -19,17 +25,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'user_id',
         'email',
-        'join_date',
-        'last_login',
-        'phone_number',
-        'status',
-        'role_name',
-        'avatar',
-        'position',
-        'department',
         'password',
+        'role_name',
     ];
 
     /**
@@ -40,6 +38,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
     ];
 
     /**
@@ -52,27 +52,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * The boot method to auto-generate user_id.
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
      */
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::creating(function ($model) {
-            $latestUser = self::orderBy('user_id', 'desc')->first();
-            if ($latestUser) {
-                $latestID = intval(substr($latestUser->user_id, 3));
-                $nextID = $latestID + 1;
-            } else {
-                $nextID = 1;
-            }
-            $model->user_id = 'KH_' . sprintf("%04d", $nextID);
-
-            // Ensure the generated user_id is unique
-            while (self::where('user_id', $model->user_id)->exists()) {
-                $nextID++;
-                $model->user_id = 'KH_' . sprintf("%04d", $nextID);
-            }
-        });
-    }
+    protected $appends = [
+        'profile_photo_url',
+    ];
 }

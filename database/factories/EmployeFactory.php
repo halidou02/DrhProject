@@ -10,28 +10,23 @@ class EmployeFactory extends Factory
 {
     protected $model = Employe::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
         return [
-            'IDDepartement' => $this->faker->numberBetween(1),
-            'IDPoste' => $this->faker->numberBetween(1),
+            'IDDepartement' => $this->faker->numberBetween(3, 4),
+            'IDPoste' => $this->faker->numberBetween(1,2),
             'Prenom' => $this->faker->firstName,
             'Nom' => $this->faker->lastName,
             'DateNaissance' => $this->faker->date(),
-            'Genre' => $this->faker->randomElement(['M', 'F']),
+            'Genre' => $this->faker->randomElement(['Homme', 'Femme']),
             'Adresse' => $this->faker->address,
-            'NumeroTelephone' => $this->faker->regexify('\+\d{1,3} \(\d{1,4}\) \d{1,4}-\d{4}'),  // Ajustez le format ici
+            'NumeroTelephone' => $this->faker->phoneNumber,
             'Email' => $this->faker->unique()->safeEmail,
             'DateIncorporation' => $this->faker->date(),
-            'SalairedeBase' => $this->faker->numberBetween(30000, 60000),
-            'Statut' => 'Actif',
+            'SalairedeBase' => $this->faker->numberBetween(20000, 500000),
+            'Statut' => $this->faker->randomElement(['Actif', 'En congé']),
             'EtatCivil' => $this->faker->randomElement(['Célibataire', 'Marié']),
-            'Photo' => $this->faker->imageUrl(640, 480, 'people')
+
         ];
     }
 }

@@ -19,36 +19,43 @@
   <span class="text-muted fw-light">Poste /</span> Modifier
 </h4>
 
-<div class="card mb-4">
-    <div class="card-header">
-        <h5 class="card-title mb-0">Modifier un Poste</h5>
-    </div>
-    <div class="card-body">
-        <form action="{{ route('poste.update', $poste->IDPoste) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="mb-3">
-                <label for="TitrePoste" class="form-label">Titre Poste</label>
-                <input type="text" class="form-control" id="TitrePoste" name="TitrePoste" value="{{ $poste->TitrePoste }}" required>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Éditer Poste</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('poste.update', $poste->IDPoste) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-3">
+                            <label for="TitrePoste" class="form-label">Titre du Poste</label>
+                            <input type="text" class="form-control" id="TitrePoste" name="TitrePoste" value="{{ $poste->TitrePoste }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="SalaireDeBase" class="form-label">Salaire de Base</label>
+                            <input type="number" class="form-control" id="SalaireDeBase" name="SalaireDeBase" value="{{ $poste->SalaireDeBase }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Description" class="form-label">Description</label>
+                            <textarea class="form-control" id="Description" name="Description" required>{{ $poste->Description }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="IdDepartement" class="form-label">Département</label>
+                            <select class="form-control select2" id="IdDepartement" name="IdDepartement" required>
+                                <option value="">Sélectionner un département</option>
+                                @foreach ($departements as $departement)
+                                <option value="{{ $departement->IDDepartement }}" @if($poste->IdDepartement == $departement->IDDepartement) selected @endif>{{ $departement->NomDepartement }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Éditer</button>
+                    </form>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="Description" class="form-label">Description</label>
-                <textarea class="form-control" id="Description" name="Description">{{ $poste->Description }}</textarea>
-            </div>
-            <div class="mb-3">
-                <label for="SalaireBase" class="form-label">Salaire de Base</label>
-                <input type="number" class="form-control" id="SalaireBase" name="SalaireBase" value="{{ $poste->SalaireBase }}" required>
-            </div>
-            <div class="mb-3">
-                <label for="IDDepartement" class="form-label">Département</label>
-                <select class="form-select select2" id="IDDepartement" name="IDDepartement" required>
-                    @foreach ($departements as $departement)
-                        <option value="{{ $departement->IDDepartement }}" {{ $poste->IDDepartement == $departement->IDDepartement ? 'selected' : '' }}>{{ $departement->NomDepartement }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Modifier</button>
-        </form>
+        </div>
     </div>
 </div>
 

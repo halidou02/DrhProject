@@ -454,6 +454,10 @@
     });
   }
 
+
+// Camber main d'oeuvre
+
+
   // Bubble Chart
   // --------------------------------------------------------------------
 
@@ -1120,3 +1124,103 @@
     });
   }
 })();
+
+document.addEventListener("DOMContentLoaded", function() {
+  const purpleColor = '#836AF9',
+    yellowColor = '#ffe800',
+    orangeColor = '#FF8132',
+    oceanBlueColor = '#299AFF';
+
+  // Data for the labor cost pie chart
+  const laborCostPieChart = document.getElementById('laborCostPieChart');
+  if (laborCostPieChart) {
+    const laborCostPieChartVar = new Chart(laborCostPieChart, {
+      type: 'pie',
+      data: {
+        labels: laborCostData.labels,
+        datasets: [{
+          label: 'Répartition des coûts de main-d\'œuvre',
+          backgroundColor: [purpleColor, yellowColor, orangeColor, oceanBlueColor],
+          data: laborCostData.data,
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+          duration: 500
+        },
+        plugins: {
+          tooltip: {
+            rtl: false,
+            backgroundColor: '#FFF',
+            titleColor: '#000',
+            bodyColor: '#000',
+            borderWidth: 1,
+            borderColor: '#EDEDED'
+          },
+          legend: {
+            rtl: false,
+            position: 'top',
+            labels: {
+              usePointStyle: true,
+              padding: 25,
+              boxWidth: 8,
+              boxHeight: 8,
+              color: '#4F5D70'
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // Data for the labor rotation pie chart
+  const laborRotationPieChart = document.getElementById('laborRotationPieChart');
+  if (laborRotationPieChart) {
+    console.log('Departures: ', laborRotationData.departures); // Vérifiez les valeurs des départs
+    console.log('Total Effectif: ', laborRotationData.effectifTotal); // Vérifiez les valeurs du total effectif
+
+    const laborRotationPieChartVar = new Chart(laborRotationPieChart, {
+      type: 'pie',
+      data: {
+        labels: ['Départs', 'Employés restants'],
+        datasets: [{
+          label: 'Rotation du personnel',
+          backgroundColor: [purpleColor, oceanBlueColor],
+          data: [laborRotationData.departures, laborRotationData.effectifTotal - laborRotationData.departures],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+          duration: 500
+        },
+        plugins: {
+          tooltip: {
+            rtl: false,
+            backgroundColor: '#FFF',
+            titleColor: '#000',
+            bodyColor: '#000',
+            borderWidth: 1,
+            borderColor: '#EDEDED'
+          },
+          legend: {
+            rtl: false,
+            position: 'top',
+            labels: {
+              usePointStyle: true,
+              padding: 25,
+              boxWidth: 8,
+              boxHeight: 8,
+              color: '#4F5D70'
+            }
+          }
+        }
+      }
+    });
+  }
+});

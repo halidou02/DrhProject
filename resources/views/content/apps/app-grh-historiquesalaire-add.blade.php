@@ -3,9 +3,17 @@
 @section('title', 'Ajouter Historique Salaire - Apps')
 
 @section('content')
-<h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">Historique Salaire /</span>Ajouter
-</h4>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
+
+    <div class="d-flex flex-column justify-content-center">
+      <h4 class="mb-1 mt-3">Modifier un salaire</h4>
+
+    </div>
+    <div class="d-flex align-content-center flex-wrap gap-3">
+        <a href="{{ route('historiquesalaire.index') }}" class="btn btn-primary">Historique des modifications</a>
+    </div>
+
+  </div>
 
 <div class="card mb-4">
   <div class="card-header">

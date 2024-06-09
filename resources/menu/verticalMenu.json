@@ -78,19 +78,14 @@
           "slug": "app-ecommerce-product",
           "submenu": [
             {
-              "url": "app/ecommerce/product/list",
-              "name": "Product List",
+              "url": "/app/grh/avantages_sociaux/list",
+              "name": "Beneficiaire",
               "slug": "app-ecommerce-product-list"
             },
             {
-              "url": "app/ecommerce/product/add",
-              "name": "Add Product",
+              "url": "/app/grh/avantages_sociaux/add",
+              "name": "Attribuer un avantage",
               "slug": "app-ecommerce-product-add"
-            },
-            {
-              "url": "app/ecommerce/product/category",
-              "name": "Category List",
-              "slug": "app-ecommerce-product-category"
             }
           ]
         },
@@ -116,22 +111,34 @@
           "slug": "app-ecommerce-product",
           "submenu": [
             {
-              "url": "app/ecommerce/product/list",
-              "name": "Product List",
+              "url": "/app/grh/evaluation/list",
+              "name": "Resultat Evaluation",
               "slug": "app-ecommerce-product-list"
             },
             {
-              "url": "app/ecommerce/product/add",
-              "name": "Add Product",
+              "url": "/app/grh/evaluation/add",
+              "name": "Faire une evaluation",
               "slug": "app-ecommerce-product-add"
-            },
-            {
-              "url": "app/ecommerce/product/category",
-              "name": "Category List",
-              "slug": "app-ecommerce-product-category"
             }
           ]
 
+        },
+        {
+          "name": "Gestion des Utilisateur",
+          "slug": "app-ecommerce-product",
+          "submenu": [
+            {
+              "url": "/app/user/list",
+              "name": "Liste des utilisateurs",
+              "slug": "app-ecommerce-product-list"
+            },
+            {
+              "url": "/app/user/add",
+              "name": "Ajouter un utilisateur",
+              "slug": "app-ecommerce-product-add"
+            }
+
+          ]
         }
       ]
 

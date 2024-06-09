@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Departement;
+use App\Models\Employe;
 
 class GrhDepartementController extends Controller
 {
     public function create()
     {
-        return view('content.apps.app-grh-departement-add');
+        // Fetch all employes for the dropdown
+        $employes = Employe::all();
+        return view('content.apps.app-grh-departement-add', compact('employes'));
     }
 
     public function index()
     {
-        $departements = Departement::all();
+        $departements = Departement::with('responsable')->get();
         return view('content.apps.app-grh-departement-list', compact('departements'));
     }
 
@@ -23,35 +26,36 @@ class GrhDepartementController extends Controller
         // Validate and store the form data
         $validatedData = $request->validate([
             'NomDepartement' => 'required|string|max:100',
-            'ResponsableDepartement' => 'nullable|string|max:10',
+            'ResponsableDepartement' => 'nullable|exists:employe,IDEmploye',
         ]);
 
         Departement::create($validatedData);
 
-        return redirect()->route('departement.create')->with('success', 'Departement ajouté avec succès');
+        return redirect()->route('departement.create')->with('success', 'Département ajouté avec succès');
     }
 
     public function edit($id)
     {
         $departement = Departement::findOrFail($id);
-        return view('content.apps.app-grh-departement-edit', compact('departement'));
+        $employes = Employe::all();
+        return view('content.apps.app-grh-departement-edit', compact('departement', 'employes'));
     }
 
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'NomDepartement' => 'required|string|max:100',
-            'ResponsableDepartement' => 'nullable|string|max:10',
+            'ResponsableDepartement' => 'nullable|exists:employe,IDEmploye',
         ]);
 
         Departement::where('IDDepartement', $id)->update($validatedData);
 
-        return redirect()->route('departement.index')->with('success', 'Departement mis à jour avec succès');
+        return redirect()->route('departement.index')->with('success', 'Département mis à jour avec succès');
     }
 
     public function destroy($id)
     {
         Departement::destroy($id);
-        return redirect()->route('departement.index')->with('success', 'Departement supprimé avec succès');
+        return redirect()->route('departement.index')->with('success', 'Département supprimé avec succès');
     }
 }

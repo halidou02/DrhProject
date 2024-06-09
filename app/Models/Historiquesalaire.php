@@ -14,7 +14,7 @@ class HistoriqueSalaire extends Model
 
     protected $fillable = [
         'IDEmploye',
-        'DateChangementSaclaire',
+        'DateChangementSalaire',
         'NouveauSalaire',
     ];
 

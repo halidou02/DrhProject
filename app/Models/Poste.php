@@ -21,7 +21,7 @@ class Poste extends Model
 
     public function departement()
     {
-        return $this->belongsTo(Departement::class, 'IDDepartement');
+        return $this->belongsTo(Departement::class, 'IdDepartement', 'IDDepartement');
     }
 
     public function employes()
